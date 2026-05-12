@@ -1,0 +1,90 @@
+{
+  "name": "argo-cd-action",
+  "version": "0.0.0",
+  "private": true,
+  "description": "GitHub action for executing Argo CD",
+  "keywords": [
+    "github",
+    "actions",
+    "argo-cd",
+    "git-ops"
+  ],
+  "homepage": "https://github.com/clowdhaus/argo-cd-action#readme",
+  "bugs": {
+    "url": "https://github.com/clowdhaus/argo-cd-action/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/clowdhaus/argo-cd-action.git"
+  },
+  "license": "Apache-2.0",
+  "author": "Clowd Haus, LLC",
+  "main": "src/index.ts",
+  "scripts": {
+    "all": "npm run lint && npm run compile",
+    "compile": "ncc build -m",
+    "lint": "eslint . --quiet --fix",
+    "release": "semantic-release"
+  },
+  "release": {
+    "branches": [
+      "main"
+    ],
+    "plugins": [
+      [
+        "@semantic-release/commit-analyzer",
+        {
+          "preset": "conventionalcommits"
+        }
+      ],
+      [
+        "@semantic-release/release-notes-generator",
+        {
+          "preset": "conventionalcommits"
+        }
+      ],
+      "@semantic-release/github",
+      [
+        "@semantic-release/changelog",
+        {
+          "changelogFile": "CHANGELOG.md"
+        }
+      ],
+      [
+        "@semantic-release/git",
+        {
+          "assets": [
+            "CHANGELOG.md",
+            "dist/index.js",
+            "package.json"
+          ],
+          "message": "chore(release): version ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
+        }
+      ]
+    ]
+  },
+  "dependencies": {
+    "@actions/core": "^3.0.0",
+    "@actions/exec": "^3.0.0",
+    "@actions/tool-cache": "^4.0.0",
+    "@octokit/auth-action": "^6.0.2",
+    "@octokit/rest": "^22.0.1",
+    "string-argv": "^0.3.2"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/git": "^10.0.1",
+    "@types/node": "^25.3.5",
+    "@vercel/ncc": "^0.38.4",
+    "conventional-changelog-conventionalcommits": "^9.3.0",
+    "eslint": "^10.0.2",
+    "semantic-release": "^25.0.3",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.56.1"
+  },
+  "overrides": {
+    "minimatch": "^10.2.4",
+    "tar": "^7.5.10"
+  }
+}
