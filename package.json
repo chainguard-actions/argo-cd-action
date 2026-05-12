@@ -1,0 +1,85 @@
+{
+  "name": "argo-cd-action",
+  "version": "0.0.0",
+  "private": true,
+  "description": "GitHub action for executing Argo CD",
+  "keywords": [
+    "github",
+    "actions",
+    "argo-cd",
+    "git-ops"
+  ],
+  "homepage": "https://github.com/clowdhaus/argo-cd-action#readme",
+  "bugs": {
+    "url": "https://github.com/clowdhaus/argo-cd-action/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/clowdhaus/argo-cd-action.git"
+  },
+  "license": "Apache-2.0",
+  "author": "Clowd Haus, LLC",
+  "main": "src/index.ts",
+  "scripts": {
+    "all": "yarn lint && yarn compile",
+    "compile": "ncc build -m",
+    "lint": "eslint . --quiet --fix",
+    "release": "semantic-release"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "release": {
+    "branches": [
+      "main"
+    ],
+    "ci": false,
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      "@semantic-release/github",
+      [
+        "@semantic-release/changelog",
+        {
+          "changelogFile": "CHANGELOG.md"
+        }
+      ],
+      [
+        "@semantic-release/git",
+        {
+          "assets": [
+            "CHANGELOG.md",
+            "package.json"
+          ],
+          "message": "chore(release): version ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
+        }
+      ]
+    ]
+  },
+  "dependencies": {
+    "@actions/core": "^1.11.1",
+    "@actions/exec": "^1.1.1",
+    "@actions/tool-cache": "^2.0.2",
+    "@octokit/auth-action": "^6.0.2",
+    "@octokit/rest": "^22.0.1",
+    "string-argv": "^0.3.2"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.1",
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/git": "^10.0.1",
+    "@types/node": "^24.10.1",
+    "@vercel/ncc": "^0.38.4",
+    "commitizen": "^4.3.1",
+    "cz-conventional-changelog": "^3.3.0",
+    "eslint": "^9.39.1",
+    "semantic-release": "^25.0.2",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.48.0"
+  },
+  "resolutions": {
+    "tmp": ">=0.2.4"
+  }
+}
